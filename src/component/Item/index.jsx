@@ -12,13 +12,19 @@ export default class Item extends React.Component {
     }
   }
 
+  handleCheck = (id) => {
+    return (event) => {
+      this.props.updateTodo(id, event.target.checked);
+    }
+  }
+
   render() {
     const {item} = this.props
     const {mouse} = this.state
     return(
-      <li style={{background: mouse ? '#ddd' : 'white'}} defaultChecked={item.isDone} onMouseEnter={this.handleMouse(true)} onMouseLeave={this.handleMouse(false)}>
+      <li style={{background: mouse ? '#ddd' : 'white'}} onMouseEnter={this.handleMouse(true)} onMouseLeave={this.handleMouse(false)}>
         <label>
-          <input type={"checkbox"} />
+          <input type={"checkbox"} onChange={this.handleCheck(item.id)} defaultChecked={item.isDone}/>
           <span>{item.name}</span>
         </label>
         <button className="btn btn-danger" style={{display: mouse ? 'block' :'none'}}>delete</button>
