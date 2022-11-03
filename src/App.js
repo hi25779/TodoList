@@ -27,12 +27,20 @@ class App extends React.Component {
     this.setState({todos: newTodos})
   }
 
+  deleteTodo = (id) => {
+    const {todos} = this.state;
+    const newTodos = todos.filter((item) => {
+      return item.id !== id;
+    })
+    this.setState({todos: newTodos});
+  }
+
   render() {
     return (
       <div className={"todo-container"}>
         <div className={"todo-wrap"}>
           <Header addTodo={this.addTodo}/>
-          <List todos={this.state.todos} updateTodo={this.updateTodo}/>
+          <List todos={this.state.todos} updateTodo={this.updateTodo} deleteTodo={this.deleteTodo}/>
         </div>
       </div>
     )
