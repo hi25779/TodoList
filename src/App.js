@@ -2,6 +2,7 @@ import './App.css';
 import React from "react";
 import Header from "./component/Header";
 import List from "./component/List";
+import Footer from "./component/Footer"
 
 class App extends React.Component {
   state = {
@@ -35,12 +36,27 @@ class App extends React.Component {
     this.setState({todos: newTodos});
   }
 
+  checkAllTodo = (isDone) => {
+    const {todos} = this.state;
+    const newTodos = todos.map((obj) => {
+      return {...obj, isDone}
+    });
+    this.setState({todos: newTodos});
+  }
+
+  clearAllDone = () => {
+    const {todos} = this.state;
+    const newTodos = todos.filter((obj) => !obj.isDone);
+    this.setState({todos: newTodos});
+  }
+
   render() {
     return (
       <div className={"todo-container"}>
         <div className={"todo-wrap"}>
           <Header addTodo={this.addTodo}/>
           <List todos={this.state.todos} updateTodo={this.updateTodo} deleteTodo={this.deleteTodo}/>
+          <Footer todos={this.state.todos} checkAllTodo={this.checkAllTodo} clearAllDone={this.clearAllDone}/>
         </div>
       </div>
     )
